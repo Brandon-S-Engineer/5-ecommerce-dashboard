@@ -1,22 +1,24 @@
-'use client'
+"use client";
 
-import { PreviewModal } from '@/components/preview-modal'
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
+
+import { StoreModal } from "@/components/modals/store-modal";
 
 export const ModalProvider = () => {
-  const [isMounted, setIsMounted] = useState(false)
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true)
-  }, [])
+    setIsMounted(true);
+  }, []);
 
+  // we are in server side meaning we are not rendering any modal on server side
   if (!isMounted) {
-    return null
+    return null;
   }
 
   return (
     <>
-      <PreviewModal />
+      <StoreModal />
     </>
-  )
-}
+  );
+};
