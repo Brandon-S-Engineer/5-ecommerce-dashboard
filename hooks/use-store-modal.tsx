@@ -1,7 +1,7 @@
 import { create } from 'zustand'; // Importing the zustand library
 
 interface useStoreModalStore {
-  isOpen: boolean; // State to check if the modal is open
+  isOpen: boolean; // State: modal is open
   onOpen: () => void; // Function to open the modal
   onClose: () => void; // Function to close the modal
 }
