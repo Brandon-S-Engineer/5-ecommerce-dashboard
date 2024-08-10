@@ -8,12 +8,13 @@ import { toast } from 'react-hot-toast';
 import { useState } from 'react';
 
 import { Modal } from '@/components/ui/modal'; // Modal component
-import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useStoreModal } from '@/hooks/use-store-modal'; // Custom Hook that uses zustand for global state management
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 const formSchema = z.object({
-  name: z.string().min(1).max(50),
+  name: z.string().min(1, { message: 'Store name is required.' }).max(50),
 });
 
 export const StoreModal = () => {
@@ -69,30 +70,43 @@ export const StoreModal = () => {
               {/* FormField component to handle the username field */}
               <FormField
                 control={form.control} // Bind form control to the field
-                name='name' // Name of the field
+                name='name'
                 render={({ field }) => (
                   // The field object contains auto generated: name, value, onChange, onBlur
-                  // Render the form item with its children
                   <FormItem>
-                    {/* Label for the username input */}
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>Name</FormLabel>
+                    {/* Message component to display validation messages */}
+                    <FormMessage />
+
                     {/* Control wrapper for the input */}
                     <FormControl>
                       {/* Input component with placeholder and binding to form control */}
                       <Input
-                        placeholder='shadcn'
+                        disabled={loading}
+                        placeholder='Store Name Here...'
                         {...field}
                       />
                     </FormControl>
-                    {/* Description for the username field */}
-                    <FormDescription>This is your public display name.</FormDescription>
-                    {/* Message component to display validation messages */}
-                    <FormMessage />
+
+                    {/* <FormDescription>This is your public display name.</FormDescription> */}
                   </FormItem>
                 )}
               />
-              {/* Submit button to submit the form */}
-              <Button type='submit'>Submit</Button>
+
+              <div className='pt-6 space-x-2 flex items-center justify-end w-full'>
+                <Button
+                  disabled={loading}
+                  variant='outline'
+                  onClick={storeModal.onClose}>
+                  Cancel
+                </Button>
+
+                <Button
+                  disabled={loading}
+                  type='submit'>
+                  Continue
+                </Button>
+              </div>
             </form>
           </Form>
         </div>
