@@ -1,6 +1,6 @@
-import prismadb from "@/lib/prismadb";
-import { auth } from "@clerk/nextjs";
-import { NextResponse } from "next/server";
+import prismadb from '@/lib/prismadb';
+import { auth } from '@clerk/nextjs';
+import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   try {
@@ -10,11 +10,11 @@ export async function POST(req: Request) {
     const { name } = body;
 
     if (!name) {
-      return new NextResponse("Bad Request", { status: 400 });
+      return new NextResponse('Bad Request', { status: 400 });
     }
 
     if (!userId) {
-      return new NextResponse("Name is required", { status: 400 });
+      return new NextResponse('Name is required', { status: 400 });
     }
 
     // create new store using prisma client instance and return the store data to the client
@@ -28,6 +28,6 @@ export async function POST(req: Request) {
     return NextResponse.json(store);
   } catch (error) {
     console.log(`[STORES_POST] ${error}`, error);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    return new NextResponse('Internal Server Error', { status: 500 });
   }
 }
