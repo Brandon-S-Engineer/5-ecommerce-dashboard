@@ -30,23 +30,24 @@ export const StoreModal = () => {
     },
   });
 
-  // Asynchronous Submit Handler: A function that processes the form values upon submission, ensuring they are validated and type-safe.
+  /* ---------------------- Asynchronous Submit Handler: ---------------------- */
+  // A function that processes the form values upon submission, ensuring they are validated and type-safe.
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log('values', values);
-    // try {
-    //   setLoading(true); // request is in progress
+    try {
+      setLoading(true); // request is in progress
 
-    //   // Make a POST request to the '/api/stores' endpoint with the form values
-    //   const response = await axios.post('/api/stores', values);
+      //? Make a POST request to the '/api/stores' endpoint with the form values using axios
+      const response = await axios.post('/api/stores', values);
 
-    //   // Redirect the user to the new store page (dashboard) using the ID from the response
-    //   window.location.assign(`/${response.data.id}`);
-    // } catch (error) {
-    //   toast.error('Something went wrong');
-    // } finally {
-    //   // request is complete
-    //   setLoading(false);
-    // }
+      // Redirect the user to the new store page (dashboard) using the ID from the response
+      window.location.assign(`/${response.data.id}`);
+    } catch (error) {
+      toast.error('Something went wrong');
+    } finally {
+      // request is complete
+      setLoading(false);
+    }
   };
 
   return (
