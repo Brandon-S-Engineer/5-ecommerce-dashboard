@@ -40,7 +40,7 @@ export const StoreModal = () => {
       //? Make a POST request to the '/api/stores' endpoint with the form values using axios
       const response = await axios.post('/api/stores', values);
 
-      // Redirect the user to the new store page (dashboard) using the ID from the response
+      // Redirect the user to the new store page using the ID from the response
       window.location.assign(`/${response.data.id}`);
     } catch (error) {
       toast.error('Something went wrong');
@@ -58,10 +58,6 @@ export const StoreModal = () => {
       onClose={storeModal.onClose}>
       <div>
         <div>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}></form>
-          </Form>
-
           {/* Pass the form methods and properties to the Form component */}
           <Form {...form}>
             {/* Form tag with handleSubmit to validate and handle form submission */}
