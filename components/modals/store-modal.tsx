@@ -40,13 +40,14 @@ export const StoreModal = () => {
       //? Make a POST request to the '/api/stores' endpoint with the form values using axios
       const response = await axios.post('/api/stores', values);
 
+      toast.success('Store Created');
+
       // Redirect the user to the new store page using the ID from the response
-      window.location.assign(`/${response.data.id}`);
+      // window.location.assign(`/${response.data.id}`);
     } catch (error) {
       toast.error('Something went wrong');
     } finally {
-      // request is complete
-      setLoading(false);
+      setLoading(false); // request is complete
     }
   };
 

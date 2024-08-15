@@ -9,13 +9,7 @@ import { cookies } from 'next/headers';
 
 import { StickyDynamicNav } from '@/components/dynamic-sticky-nav';
 
-export default async function DashboardLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: { storeId: string };
-}) {
+export default async function DashboardLayout({ children, params }: { children: React.ReactNode; params: { storeId: string } }) {
   const { userId } = auth();
   const layout = cookies().get('react-resizable-panels:layout');
   const collapsed = cookies().get('react-resizable-panels:collapsed');
@@ -41,11 +35,11 @@ export default async function DashboardLayout({
 
   return (
     <>
-      <div className="min-h-screen">
-      <Navbar />
-      {children}
+      <div className='min-h-screen'>
+        <Navbar />
+        {children}
       </div>
-      <div className="hidden flex-col md:flex">
+      <div className='hidden flex-col md:flex'>
         <StickyDynamicNav
           accounts={accounts}
           mails={mails}
