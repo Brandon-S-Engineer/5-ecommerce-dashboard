@@ -1,6 +1,6 @@
 'use client';
 
-import { useStoreModal } from '@/hooks/use-store-modal'; // Importing custom hook for store modal
+import { useStoreModal } from '@/hooks/use-store-modal'; // Custom hook for store modal
 import { useEffect } from 'react';
 
 const SetUpPage = () => {
