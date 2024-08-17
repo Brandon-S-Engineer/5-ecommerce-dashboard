@@ -42,6 +42,7 @@ export default async function DashboardLayout({ children, params }: { children: 
     <>
       <div className='min-h-screen'>
         {/* <Navbar /> */}
+        <div>This will be a Navbar</div>
         {children}
       </div>
       {/* <div className='hidden flex-col md:flex'>
