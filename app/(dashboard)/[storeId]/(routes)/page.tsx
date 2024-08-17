@@ -8,8 +8,6 @@
 // import { Separator } from '@/components/ui/separator'; // Separator UI component
 // import { rupeeFormatter } from '@/lib/utils'; // Utility for formatting rupees
 
-import { requestAsyncStorage } from 'next/dist/client/components/request-async-storage';
-
 // import { CreditCard, DollarSign, Package2 } from 'lucide-react'; // Icons from lucide-react
 
 // interface DashboardPageProps {
