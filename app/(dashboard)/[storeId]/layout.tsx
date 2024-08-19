@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import { auth } from '@clerk/nextjs'; // Clerk authentication
 
-// import Navbar from '@/components/navbar';
+import Navbar from '@/components/navbar';
 import prismadb from '@/lib/prismadb'; // PrismaDB instance
 
 // import { accounts, mails } from '@/lib/data'; // Account and mail data
@@ -41,8 +41,8 @@ export default async function DashboardLayout({ children, params }: { children: 
   return (
     <>
       <div className='min-h-screen'>
-        {/* <Navbar /> */}
-        <div>This will be a Navbar</div>
+        <Navbar />
+
         {children}
       </div>
       {/* <div className='hidden flex-col md:flex'>
