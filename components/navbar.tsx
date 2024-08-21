@@ -2,9 +2,11 @@ import { UserButton, auth } from '@clerk/nextjs'; // Clerk components for user a
 // import { redirect } from 'next/navigation'; // Redirect function for handling navigation.
 
 import StoreSwitcher from '@/components/store-switcher';
-// import prismadb from '@/lib/prismadb';
+import prismadb from '@/lib/prismadb';
 
 import { MainNav } from '@/components/main-nav';
+import { redirect } from 'next/navigation'; // Redirect function for handling navigation.
+
 // import { ThemeToggle } from './theme-toggle';
 
 // const Navbar = async () => {
@@ -38,11 +40,23 @@ import { MainNav } from '@/components/main-nav';
 
 // export default Navbar; // Exports the Navbar component as the default.
 
-const Navbar = () => {
+const Navbar = async () => {
+  const { userId } = auth(); // Authenticated user's ID
+
+  if (!userId) {
+    redirect('/sign-in');
+  }
+
+  const stores = await prismadb.store.findMany({
+    where: {
+      userId, // Fetch all stores associated with the authenticated user
+    },
+  });
+
   return (
     <div className='border-b'>
       <div className='flex h-16 items-center px-4'>
-        <StoreSwitcher />
+        <StoreSwitcher items={stores} />
 
         <MainNav className='mx-6' />
 
