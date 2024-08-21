@@ -6,8 +6,8 @@ import { useParams, usePathname } from 'next/navigation'; // Hooks for getting U
 import { cn } from '@/lib/utils'; // Utility function for conditionally applying classes.
 
 export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElement>) {
-  const pathname = usePathname(); // Gets the current URL path.
-  const params = useParams(); // Gets the dynamic parameters from the URL.
+  const pathname = usePathname(); // Current URL path
+  const params = useParams(); // Dynamic parameters from the URL
 
   const routes = [
     {

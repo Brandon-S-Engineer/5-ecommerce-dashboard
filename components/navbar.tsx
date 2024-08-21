@@ -1,7 +1,7 @@
 import { UserButton, auth } from '@clerk/nextjs'; // Clerk components for user authentication.
 // import { redirect } from 'next/navigation'; // Redirect function for handling navigation.
 
-// import StoreSwitcher from '@/components/store-switcher';
+import StoreSwitcher from '@/components/store-switcher';
 // import prismadb from '@/lib/prismadb';
 
 import { MainNav } from '@/components/main-nav';
@@ -42,7 +42,7 @@ const Navbar = () => {
   return (
     <div className='border-b'>
       <div className='flex h-16 items-center px-4'>
-        <div>This will be a store switcher</div>
+        <StoreSwitcher />
 
         <MainNav className='mx-6' />
 
