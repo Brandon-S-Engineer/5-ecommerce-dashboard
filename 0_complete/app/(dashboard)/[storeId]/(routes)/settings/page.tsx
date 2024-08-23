@@ -38,12 +38,12 @@
 
 // export default SettingsPage;
 
-import prismadb from '@/lib/prismadb'; // Import the Prisma database instance
-import { auth } from '@clerk/nextjs'; // Import Clerk authentication
-import { redirect } from 'next/navigation'; // Import redirect function from Next.js
+import prismadb from '@/lib/prismadb'; // Prisma database instance
+import { auth } from '@clerk/nextjs'; // Clerk authentication
+import { redirect } from 'next/navigation'; // Redirect function from Next.js
 
-import React from 'react'; // Import React
-import { SettingsForm } from './components/settings-form'; // Import SettingsForm component
+import React from 'react';
+import { SettingsForm } from './components/settings-form'; // SettingsForm component
 
 // Define the props interface for SettingsPage
 interface SettingsPageProps {
@@ -52,9 +52,9 @@ interface SettingsPageProps {
   };
 }
 
-// Define the SettingsPage component as async since it performs database operations
+// Define SettingsPage component as async since it performs database operations
 const SettingsPage: React.FC<SettingsPageProps> = async ({ params }) => {
-  const { userId } = auth(); // Get the userId from the authentication context
+  const { userId } = auth(); // Get the userId from the authentication context by destructuring
 
   if (!userId) {
     redirect('/sign-in'); // If user is not authenticated, redirect to sign-in page
