@@ -41,7 +41,7 @@ export async function PATCH(req: Request, { params }: { params: { storeId: strin
       },
     });
 
-    //? Return updated store as JSON tothe client Update the UI
+    //? Return updated store as JSON to the client Update the UI
     return NextResponse.json(store);
   } catch (error: any) {
     console.log(`[STORE_PATCH] `, error); // Log any error that occurs
