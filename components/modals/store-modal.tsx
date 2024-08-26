@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
 const formSchema = z.object({
-  name: z.string().min(1, { message: 'Store name is required.' }).max(50),
+  name: z.string().min(3, { message: 'Store name is required, (min 3 characters).' }).max(25),
 });
 
 export const StoreModal = () => {
