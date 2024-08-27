@@ -66,7 +66,7 @@ export async function DELETE(req: Request, { params }: { params: { storeId: stri
       return new NextResponse('Store ID is Required', { status: 400 }); // Return if 'stireId' is missing
     }
 
-    // 6. Update Store where storeId and userID match
+    // 4. Update Store where storeId and userID match
     const store = await prismadb.store.deleteMany({
       where: {
         id: storeId,

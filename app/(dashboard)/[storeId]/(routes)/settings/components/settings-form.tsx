@@ -1,11 +1,14 @@
 'use client';
 
 import * as z from 'zod'; // import { z } from 'zod'; // Zod for schema validation
+import axios from 'axios';
 import { useState } from 'react';
 import { Store } from '@prisma/client';
 import { Trash } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useParams, useRouter } from 'next/navigation';
 
 import Heading from '@/components/ui/heading'; // Component for titles
 import { Button } from '@/components/ui/button';
@@ -28,6 +31,9 @@ const formSchema = z.object({
 type SettingsFormValues = z.infer<typeof formSchema>;
 
 export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
+  const params = useParams(); // Hook to access URL parameters (id)
+  const router = useRouter(); // Hook to manage navigation and refreshing
+
   const [open, setOpen] = useState(false); // Modal State
   const [loading, setLoading] = useState(false);
 
@@ -39,14 +45,18 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
 
   /* -------------------- Submit handler for form submition ------------------- */
   const onSubmit = async (data: SettingsFormValues) => {
-    // try {
-    //   setLoading(true);
+    try {
+      setLoading(true);
 
-    //   /* ------------------------------ Update Store ------------------------------ */
-    // } catch (error) {
-    // } finally {
-    //   setLoading(false);
-    // }
+      /* ------------------------------ Update Store ------------------------------ */
+      await axios.patch(`/api/stores/${params.storeId}`, data);
+      router.refresh(); // Refresh the page after success
+      toast.success('Store Updated Successfully.');
+    } catch (error) {
+      toast.error('Something went wrong.');
+    } finally {
+      setLoading(false);
+    }
 
     console.log(data);
   };
