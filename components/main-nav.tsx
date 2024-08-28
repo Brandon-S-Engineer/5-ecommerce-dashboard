@@ -11,11 +11,17 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
 
   const routes = [
     {
-      href: `${params.storeId}/settings`, // Dynamic URL for each store-settings
-      label: 'Settings', // Label for the UI for navigation
+      href: `/${params.storeId}`, // Dynamic URL for each store-settings
+      label: 'Overview',
 
       // The 'active' property Marks the current link as active for styling
-      active: pathname === `/${params.storeId}/settings`, // Checks if the current path matches the settings route
+      active: pathname === `/${params.storeId}`, // Checks if the current path matches the settings route
+    },
+    {
+      href: `/${params.storeId}/settings`,
+      label: 'Settings',
+
+      active: pathname === `/${params.storeId}/settings`,
     },
   ];
 
