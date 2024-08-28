@@ -61,7 +61,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
     }
   };
 
-  // Handler for deleting the store
+  /* --------------------- Handler for deleting the store --------------------- */
   const onDelete = async () => {
     try {
       setLoading(true); // Set loading state

@@ -4,10 +4,10 @@ import prismadb from '@/lib/prismadb';
 
 // Async function for the Setup Layout page
 export default async function SetupLayout({ children }: { children: React.ReactNode }) {
-  const { userId } = auth(); // Get the authenticated user ID from Clerk
+  const { userId } = auth(); // Authenticated user ID from Clerk
 
   if (!userId) {
-    redirect('/sign-in'); // If no user ID, redirect to the sign-in page
+    redirect('/sign-in');
   }
 
   //? Find the first store associated with the user in the Prisma DB
@@ -18,8 +18,8 @@ export default async function SetupLayout({ children }: { children: React.ReactN
   if (store) {
     redirect(`/${store.id}`);
     //? If a store exists, redirect to the store's dashboard "[storeId] folder"
-    // Uses the redirect method to navigate the user to the store's dashboard, matching the dynamic [storeId] route in the app directory
   }
 
-  return <>{children}</>; // Render the child components if no redirection is triggered
+  // If no redirection is triggered
+  return <>{children}</>;
 }
