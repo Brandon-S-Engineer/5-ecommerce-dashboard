@@ -1,6 +1,9 @@
 'use client';
 
-import { Alert } from '@/components/ui/alert';
+import { Server } from 'lucide-react';
+
+import { Alert, AlertTitle } from '@/components/ui/alert';
+import { Badge } from '@/components/ui/badge';
 
 interface ApiAlertProps {
   title: string;
@@ -8,18 +11,26 @@ interface ApiAlertProps {
   variant: 'public' | 'admin';
 }
 
-// Keys: 'public' | 'admin' - Value: string
+//? Variant 1 // Text Label
 const textMap: Record<ApiAlertProps['variant'], string> = {
   public: 'Public',
   admin: 'Admin',
 };
 
-// const variantMap: Record<ApiAlertProps['variant'], BadgeProps['variant']> = {
+//? Variant 2 // Badge Style
 const variantMap: Record<ApiAlertProps['variant'], string> = {
   public: 'secondary',
   admin: 'destructive',
 };
 
 export const ApiAlert: React.FC<ApiAlertProps> = ({ title, description, variant = 'public' }) => {
-  return <Alert>ApiAlert</Alert>;
+  return (
+    <Alert>
+      <Server className='h-4 w-4' /> {/* Icon */}
+      <AlertTitle className='flex items-center gap-x-2'>
+        {title}
+        <Badge>{textMap[variant]}</Badge>
+      </AlertTitle>
+    </Alert>
+  );
 };
