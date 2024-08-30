@@ -1,9 +1,9 @@
 'use client';
 
-import Link from 'next/link'; // Link component for navigation.
-import { useParams, usePathname } from 'next/navigation'; // Hooks for getting URL parameters and current path.
+import Link from 'next/link'; // Link component for navigation
+import { useParams, usePathname } from 'next/navigation'; // Hooks for getting URL parameters and current path
 
-import { cn } from '@/lib/utils'; // Utility function for conditionally applying classes.
+import { cn } from '@/lib/utils'; // Utility function for conditionally applying classes
 
 export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElement>) {
   const pathname = usePathname(); // Current URL path
@@ -18,9 +18,13 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
       active: pathname === `/${params.storeId}`, // Checks if the current path matches the settings route
     },
     {
+      href: `/${params.storeId}/billboards`,
+      label: 'Billboards',
+      active: pathname === `/${params.storeId}/billboards`,
+    },
+    {
       href: `/${params.storeId}/settings`,
       label: 'Settings',
-
       active: pathname === `/${params.storeId}/settings`,
     },
   ];
