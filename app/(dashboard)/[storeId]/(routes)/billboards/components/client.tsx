@@ -20,7 +20,7 @@ export const BillboardClient = () => {
         />
 
         {/* Button to navigate to new Billboard creation page */}
-        <Button onClick={() => router.push}>
+        <Button onClick={() => router.push(`/${params.storeId}/billboards/new`)}>
           <Plus className='mr-4 h-4 w-4' />
           Add New
         </Button>
