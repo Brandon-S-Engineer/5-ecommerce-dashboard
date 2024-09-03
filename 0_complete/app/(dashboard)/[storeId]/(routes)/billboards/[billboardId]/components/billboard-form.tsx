@@ -1,27 +1,23 @@
-'use client'; // Enables client-side rendering for this component
+'use client';
 
-import { AlertModal } from '@/components/modals/alert-modal'; // Importing AlertModal component for displaying modal alerts
-import { Button } from '@/components/ui/button'; // Importing Button component for button elements
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'; // Importing form components for building forms
-import Heading from '@/components/ui/heading'; // Importing Heading component for displaying titles and descriptions
-import ImageUpload from '@/components/ui/image-upload'; // Importing ImageUpload component for uploading images
-import { Input } from '@/components/ui/input'; // Importing Input component for input fields
-import { Separator } from '@/components/ui/separator'; // Importing Separator component for dividing content sections
-import { useOrigin } from '@/hooks/use-origin'; // Importing custom hook to get origin data
+import { AlertModal } from '@/components/modals/alert-modal'; // Component for modal alerts
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'; // Form components
+import Heading from '@/components/ui/heading'; // Heading component for titles and descriptions
+import ImageUpload from '@/components/ui/image-upload'; // ImageUpload component for uploading images
+import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
+import { useOrigin } from '@/hooks/use-origin';
 import { zodResolver } from '@hookform/resolvers/zod'; // Resolver for form validation using Zod schema
-import { Billboard } from '@prisma/client'; // Importing Billboard type from Prisma client
-import axios from 'axios'; // Importing axios for making HTTP requests
-import { Trash } from 'lucide-react'; // Importing Trash icon from lucide-react library
-import { useParams, useRouter } from 'next/navigation'; // Importing hooks for navigation and accessing dynamic route parameters
+import { Billboard } from '@prisma/client'; // Billboard type from Prisma client
+import axios from 'axios';
+import { Trash } from 'lucide-react'; // Trash icon
+import { useParams, useRouter } from 'next/navigation'; // Hooks for navigation
 
-import { useState } from 'react'; // Importing useState hook for managing state
-import { useForm } from 'react-hook-form'; // Importing useForm hook for managing form state
-import toast from 'react-hot-toast'; // Importing toast for displaying notifications
-import { z } from 'zod'; // Importing Zod for creating validation schemas
-
-interface BillboardFormProps {
-  initialData: Billboard | null; // Props for optional initial data
-}
+import { useState } from 'react';
+import { useForm } from 'react-hook-form'; // useForm hook for managing form state
+import toast from 'react-hot-toast'; // Notifications
+import { z } from 'zod'; // Zod for creating validation schemas
 
 // Define form schema using Zod
 const formSchema = z.object({
@@ -31,12 +27,16 @@ const formSchema = z.object({
 
 type BillboardFormValues = z.infer<typeof formSchema>; // Infer TypeScript type from schema
 
-export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
-  const params = useParams(); // Hook for accessing dynamic route parameters
-  const router = useRouter(); // Hook for navigation
+interface BillboardFormProps {
+  initialData: Billboard | null; // Props for optional initial data
+}
 
-  const [open, setOpen] = useState(false); // State for managing modal visibility
-  const [loading, setLoading] = useState(false); // State for managing loading status
+export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
+  const params = useParams(); // Dynamic route parameters
+  const router = useRouter(); // Navigation
+
+  const [open, setOpen] = useState(false); // Manage modal visibility
+  const [loading, setLoading] = useState(false); // Manage  loading status
 
   const title = initialData ? 'Edit Billboard' : 'Create Billboard'; // Dynamic title based on initialData presence
   const description = initialData ? 'Edit your billboard' : 'Create a new billboard'; // Dynamic description
@@ -44,6 +44,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
   const action = initialData ? 'Save Changes' : 'Create Billboard'; // Button label
 
   const origin = useOrigin(); // Custom hook for origin data
+
   const form = useForm<BillboardFormValues>({
     resolver: zodResolver(formSchema), // Use Zod schema for form validation
     defaultValues: initialData || { label: '', imageUrl: '' }, // Set default form values
