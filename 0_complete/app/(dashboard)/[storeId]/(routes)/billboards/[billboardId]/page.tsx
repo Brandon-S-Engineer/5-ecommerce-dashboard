@@ -2,9 +2,8 @@ import prismadb from '@/lib/prismadb'; // Importing Prisma database instance for
 import React from 'react'; // Importing React library
 import { BillboardForm } from './components/billboard-form'; // Importing the BillboardForm component
 
-// Async component to render the BillboardPage
 const BillboardPage = async ({ params }: { params: { billboardId: string } }) => {
-  // Fetch the billboard data from the database using Prisma, based on the billboardId from params
+  // Fetch the billboard
   const billboard = await prismadb.billboard.findFirst({
     where: {
       id: params.billboardId, // Match the billboard by its ID from the URL params
@@ -21,7 +20,7 @@ const BillboardPage = async ({ params }: { params: { billboardId: string } }) =>
   );
 };
 
-export default BillboardPage; // Exporting the BillboardPage component as default
+export default BillboardPage;
 
 // import prismadb from '@/lib/prismadb';
 // import React from 'react';
