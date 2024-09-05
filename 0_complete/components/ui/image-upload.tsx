@@ -55,9 +55,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ disabled, onChange, onRemove,
         ))}
       </div>
       <CldUploadWidget
-        onUpload={onUpload} // Callback for handling image upload
+        onUpload={onUpload}
         uploadPreset='zsbnfecj'>
-        {/* Cloudinary upload preset */}
         {({ open }) => {
           const onClick = () => {
             open(); // Open Cloudinary upload widget
@@ -66,7 +65,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ disabled, onChange, onRemove,
           return (
             <Button
               type='button'
-              disabled={disabled} // Disable button if 'disabled' prop is true
+              disabled={disabled}
               variant='secondary'
               onClick={onClick}>
               <ImagePlus className='h-4 w-4 mr-2' /> {/* Icon for the upload button */}

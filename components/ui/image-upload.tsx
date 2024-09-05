@@ -1,7 +1,9 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { Trash } from 'lucide-react';
+import { ImagePlus, Trash } from 'lucide-react';
+import { CldUploadWidget } from 'next-cloudinary';
 
 import { Button } from '@/components/ui/button';
 
@@ -45,9 +47,37 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ disabled, onChange, onRemove,
                 <Trash className='h-4 w-4' />
               </Button>
             </div>
+
+            <Image
+              fill
+              className='object-cover'
+              alt='image'
+              src={url}
+            />
           </div>
         ))}
       </div>
+      <CldUploadWidget
+        onUpload={onUpload}
+        uploadPreset='brandonsoria'>
+        {/* `open` is destructured from the object passed by CldUploadWidget */}
+        {({ open }) => {
+          const onClick = () => {
+            open(); // Open Cloudinary upload widget
+          };
+
+          return (
+            <Button
+              type='button'
+              disabled={disabled}
+              variant='secondary'
+              onClick={onClick}>
+              <ImagePlus className='h-4 w-4 mr-2' />
+              Upload an Image
+            </Button>
+          );
+        }}
+      </CldUploadWidget>
     </div>
   );
 };
