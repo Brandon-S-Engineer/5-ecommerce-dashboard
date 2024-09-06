@@ -1,29 +1,34 @@
-import prismadb from '@/lib/prismadb'; // Import Prisma client instance from a custom path
-import { auth } from '@clerk/nextjs'; // Import auth function to get the authenticated user's details
-import { NextResponse } from 'next/server'; // Import NextResponse to handle responses
+import prismadb from '@/lib/prismadb'; // Prisma client instance from a custom path
+import { auth } from '@clerk/nextjs'; // auth function to get the authenticated user's details
+import { NextResponse } from 'next/server'; // NextResponse to handle responses
 
 export async function POST(req: Request) {
   try {
     const body = await req.json(); // Parse the request body as JSON
-
     const { userId } = auth(); // Retrieve the user ID from the authentication that use clerk
-    const { name } = body; // Extract the 'name' field from the body
+
+    const { label, imageUrl } = body; // Extract label and imageUrl from the body
 
     /* ------------------------------- Conditions ------------------------------- */
     if (!userId) {
-      return new NextResponse('Unauthorized', { status: 401 }); // Return 400 if 'userId' is missing
+      return new NextResponse('Unauthorized', { status: 401 }); // Return 401 if 'userId' is missing
     }
 
-    if (!name) {
-      return new NextResponse('Name is required', { status: 400 }); // Return 400 if 'name' is missing
+    if (!label) {
+      return new NextResponse('Label is required', { status: 400 }); // Return 400 if 'name' is missing
+    }
+
+    if (!imageUrl) {
+      return new NextResponse('Image URL is required', { status: 400 }); // Return 400 if 'name' is missing
     }
 
     /* --------------------------- Create a New Store --------------------------- */
     // in the database using Prisma and return the store data to the client
-    const store = await prismadb.store.create({
+    const billboard = await prismadb.billboard.create({
       data: {
-        name,
-        userId,
+        label,
+        imageUrl,
+        storeId: params.
       },
     });
 
