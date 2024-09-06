@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     }
 
     /* --------------------------- Create a New Store --------------------------- */
-    // in the database using Prisma and return the store data to the client
+    // Properties defined in the schema
     const billboard = await prismadb.billboard.create({
       data: {
         label,
