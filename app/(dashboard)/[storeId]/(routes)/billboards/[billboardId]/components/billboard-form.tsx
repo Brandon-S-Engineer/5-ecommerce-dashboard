@@ -62,15 +62,15 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
       setLoading(true);
 
       if (initialData) {
-        /* ------------------------------- Edit Store ------------------------------- */
+        /* ----------------------------- Edit Billboard ----------------------------- */
         await axios.patch(`/post/${params.storeId}/billboards/${params.billboardId}`, data);
       } else {
-        /* ------------------------------ Create Store ------------------------------ */
+        /* ---------------------------- Create Billboard ---------------------------- */
         await axios.post(`/post/${params.storeId}/billboards`, data);
       }
 
       router.refresh(); // Refresh the page after success
-      toast.success('Store Updated Successfully.');
+      toast.success(toastMessage);
     } catch (error) {
       toast.error('Something went wrong.');
     } finally {
@@ -80,16 +80,17 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
     console.log(data);
   };
 
-  /* --------------------- Handler for deleting the store --------------------- */
+  /* --------------------- Handler for deleting Billboard --------------------- */
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/stores/${params.storeId}`); // Delete store via API
+      /* ---------------------------- Delete Billboard ---------------------------- */
+      await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
       router.refresh(); // Refresh
       router.push('/'); // Redirect
-      toast.success('Store deleted successfully'); // Success notification
+      toast.success('Billboard deleted successfully'); // Success notification
     } catch (error) {
-      toast.error('Make sure you deleted all products and categories first');
+      toast.error('Make sure you deleted all categories using this billboard first');
     } finally {
       setLoading(false);
       setOpen(false);
