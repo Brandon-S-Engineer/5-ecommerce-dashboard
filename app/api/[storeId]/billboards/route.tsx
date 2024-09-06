@@ -2,7 +2,8 @@ import prismadb from '@/lib/prismadb'; // Prisma client instance from a custom p
 import { auth } from '@clerk/nextjs'; // auth function to get the authenticated user's details
 import { NextResponse } from 'next/server'; // NextResponse to handle responses
 
-export async function POST(req: Request) {
+// export async function POST(req: Request, { params }: { params: { storeId: string } }) {
+export async function POST(req: Request, { params }: { params: { storeId: string } }) {
   try {
     const body = await req.json(); // Parse the request body as JSON
     const { userId } = auth(); // Retrieve the user ID from the authentication that use clerk
@@ -11,16 +12,28 @@ export async function POST(req: Request) {
 
     /* ------------------------------- Conditions ------------------------------- */
     if (!userId) {
-      return new NextResponse('Unauthorized', { status: 401 }); // Return 401 if 'userId' is missing
+      return new NextResponse('Unauthenticated', { status: 401 }); // Return 401 if 'userId' is missing
     }
 
     if (!label) {
-      return new NextResponse('Label is required', { status: 400 }); // Return 400 if 'name' is missing
+      return new NextResponse('Label is required', { status: 400 });
     }
 
     if (!imageUrl) {
-      return new NextResponse('Image URL is required', { status: 400 }); // Return 400 if 'name' is missing
+      return new NextResponse('Image URL is required', { status: 400 });
     }
+
+    if (!params.storeId) {
+      return new NextResponse('Store ID is required', { status: 400 });
+    }
+
+    // Store ID exists for authenticated user
+    const storeByUserId = await prismadb.store.findFirst({
+      where: {
+        id: params.storeId,
+        userId,
+      },
+    });
 
     /* --------------------------- Create a New Store --------------------------- */
     // Properties defined in the schema
@@ -28,13 +41,13 @@ export async function POST(req: Request) {
       data: {
         label,
         imageUrl,
-        storeId: params.
+        storeId: params.storeId,
       },
     });
 
-    return NextResponse.json(store); // Return the created store as a JSON response
+    return NextResponse.json(billboard); // Return the created store as a JSON response
   } catch (error) {
-    console.log(`[Stores > route.ts] ${error}`, error); // Log the error for debugging
+    console.log(`[Billboards > route.ts] ${error}`, error); // Log the error for debugging
 
     return new NextResponse('Internal Server Error', { status: 500 }); // Return 500 if there's a server error
   }
