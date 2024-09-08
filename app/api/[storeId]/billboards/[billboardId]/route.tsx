@@ -1,21 +1,29 @@
 import prismadb from '@/lib/prismadb'; // Prisma client instance
-import { auth } from '@clerk/nextjs'; // Import authentication helper from Clerk
-import { NextResponse } from 'next/server'; // Import Next.js response object
+import { auth } from '@clerk/nextjs'; // Authentication helper from Clerk
+import { NextResponse } from 'next/server';
 
-// PATCH handler to update store
-// { params }: | Destructuring, coming from the
+//? GET request
+export async function GET(req: Request, { params }: { params: { billboardId: string } }) {
+  try {
+    if (!params.billboardId) {
+      return new NextResponse('Billboard ID is required', { status: 400 });
+    }
 
-// {
-//   params: {
-//     storeId: "some-id" // storeId is a string inside the params object
-//   }
-// }
+    const billboard = await prismadb.billboard.findUnique({
+      where: { id: params.billboardId },
+    });
 
-//? PATCH request to update specific billboard
+    return NextResponse.json(billboard);
+  } catch (error) {
+    console.log('[BILLBOARD_GET]', error);
+    return new NextResponse('Internal error', { status: 500 });
+  }
+}
+
+//? PATCH request
 export async function PATCH(req: Request, { params }: { params: { storeId: string; billboardId: string } }) {
   try {
     const { userId } = auth();
-    const { storeId } = params;
     const body = await req.json(); // Parse request body
     const { label, imageUrl } = body;
 
@@ -37,7 +45,10 @@ export async function PATCH(req: Request, { params }: { params: { storeId: strin
 
     const storeByUserId = await prismadb.store.findFirst({
       // Check store ownership
-      where: { id: params.storeId, userId },
+      where: {
+        id: params.storeId,
+        userId,
+      },
     });
 
     if (!storeByUserId) {
@@ -54,34 +65,42 @@ export async function PATCH(req: Request, { params }: { params: { storeId: strin
     return NextResponse.json(billboard);
   } catch (error: any) {
     console.log(`[BILLBOARD_PATCH] `, error);
-    return new NextResponse('Internal Server Error', { status: 500 }); // Return 500 for internal server errors
+    return new NextResponse('Internal Server Error', { status: 500 }); // 500 for internal server errors
   }
 }
 
-/* --------------------- DELETE handler to delete store --------------------- */
-export async function DELETE(req: Request, { params }: { params: { storeId: string } }) {
+//? DELETE request
+export async function DELETE(req: Request, { params }: { params: { storeId: string; billboardId: string } }) {
   try {
-    const { userId } = auth(); // Get userId from authenticated session
+    const { userId } = auth();
+
     if (!userId) {
-      return new NextResponse('Unauthorized', { status: 401 }); // If not authenticated, return 401
+      return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    const { storeId } = params; // Get storeId from request params
-
-    if (!storeId) {
-      return new NextResponse('Store ID is Required', { status: 400 }); // If 'storeId' is missing, return 400
+    if (!params.billboardId) {
+      return new NextResponse('Billboard ID is Required', { status: 400 });
     }
 
-    // Delete store where storeId and userId match
-    const store = await prismadb.store.deleteMany({
+    const storeByUserId = await prismadb.store.findFirst({
+      where: { id: params.storeId, userId },
+    });
+
+    if (!storeByUserId) {
+      return new NextResponse('Unauthorized', { status: 403 });
+    }
+
+    // Delete store where billboardId and userId match
+    const billboard = await prismadb.store.deleteMany({
       where: {
-        id: storeId,
+        id: params.billboardId,
         userId,
       },
     });
-    return NextResponse.json(store); // Return deleted store as JSON
+
+    return NextResponse.json(billboard); // Return deleted store as JSON
   } catch (error: any) {
-    console.log(`[STORE_DELETE] `, error); // Log any error that occurs
-    return new NextResponse('Internal Server Error', { status: 500 }); // Return 500 for internal server errors
+    console.log(`[BILLBOARD_DELETE] `, error);
+    return new NextResponse('Internal Server Error', { status: 500 });
   }
 }
