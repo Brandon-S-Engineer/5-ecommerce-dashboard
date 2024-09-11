@@ -34,7 +34,7 @@ const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {
           Add New
         </Button>
       </div>
-      <Separator /> {/* Separator component for visual separation */}
+      <Separator />
       {/* DataTable component to display billboards data */}
       <DataTable
         searchKey='label' // Searchable key

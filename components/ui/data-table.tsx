@@ -1,25 +1,61 @@
 'use client';
 
-import { ColumnDef, ColumnFiltersState, flexRender, getCoreRowModel, getSortedRowModel, SortingState, getPaginationRowModel, getFilteredRowModel, useReactTable, VisibilityState } from '@tanstack/react-table';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { useState } from 'react';
-import { ChevronDown, Search } from 'lucide-react';
-import { DataTablePagination } from './data-table-pagination';
+// Imports from @tanstack/react-table for table setup
+import {
+  ColumnDef, // Column definitions
+  ColumnFiltersState, // Filter state
+  flexRender, // Render headers/cells
+  getCoreRowModel, // Core row model
+  getSortedRowModel, // Sorted rows
+  SortingState, // Sorting state
+  getPaginationRowModel, // Pagination
+  getFilteredRowModel, // Filtered rows
+  useReactTable, // Main table hook
+  VisibilityState, // Column visibility state
+} from '@tanstack/react-table';
 
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+// UI components for buttons, inputs, and table
+import { Button } from '@/components/ui/button'; // Button for actions
+import { Input } from '@/components/ui/input'; // Input for search
+import {
+  Table, // Table component
+  TableBody, // Table body
+  TableCell, // Table cells
+  TableHead, // Table headers
+  TableHeader, // Header container
+  TableRow, // Table rows
+} from '@/components/ui/table';
+
+// React hook for state management
+import { useState } from 'react'; // State hook
+
+// Icons and pagination component
+import { ChevronDown, Search } from 'lucide-react'; // Icons
+import { DataTablePagination } from './data-table-pagination'; // Pagination
+
+// Dropdown menu components
+import {
+  DropdownMenu, // Dropdown menu
+  DropdownMenuCheckboxItem, // Checkbox item
+  DropdownMenuContent, // Dropdown content
+  DropdownMenuTrigger, // Trigger dropdown
+} from '@/components/ui/dropdown-menu';
+
+// Define props for DataTable component
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-  searchKey: string;
+  columns: ColumnDef<TData, TValue>[]; // Defines table columns
+  data: TData[]; // Defines table data
+  searchKey: string; // Key for search functionality
 }
 
+// DataTable component definition
 export function DataTable<TData, TValue>({ columns, data, searchKey }: DataTableProps<TData, TValue>) {
+  // State hooks for managing filters, sorting, and visibility
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
+  // Initialize table with data, columns, and state management handlers
   const table = useReactTable({
     data,
     columns,
@@ -30,16 +66,16 @@ export function DataTable<TData, TValue>({ columns, data, searchKey }: DataTable
     onColumnVisibilityChange: setColumnVisibility,
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-
     state: {
-      columnFilters,
-      sorting,
-      columnVisibility,
+      columnFilters, // Current filter state
+      sorting, // Current sorting state
+      columnVisibility, // Current column visibility state
     },
   });
 
   return (
     <div>
+      {/* Search input and column filter dropdown */}
       <div className='flex items-center py-4'>
         <div className='relative max-w-sm'>
           <Search
@@ -53,6 +89,7 @@ export function DataTable<TData, TValue>({ columns, data, searchKey }: DataTable
             className='pl-10'
           />
         </div>
+        {/* Column visibility dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -66,28 +103,27 @@ export function DataTable<TData, TValue>({ columns, data, searchKey }: DataTable
             {table
               .getAllColumns()
               .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className='capitalize'
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) => column.toggleVisibility(!!value)}>
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
+              .map((column) => (
+                <DropdownMenuCheckboxItem
+                  key={column.id}
+                  className='capitalize'
+                  checked={column.getIsVisible()}
+                  onCheckedChange={(value) => column.toggleVisibility(!!value)}>
+                  {column.id}
+                </DropdownMenuCheckboxItem>
+              ))}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+      {/* Table rendering */}
       <div className='rounded-md border'>
         <Table>
           <TableHeader className='bg-slate-100'>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return <TableHead key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</TableHead>;
-                })}
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>
@@ -114,6 +150,7 @@ export function DataTable<TData, TValue>({ columns, data, searchKey }: DataTable
           </TableBody>
         </Table>
       </div>
+      {/* Pagination for the table */}
       <DataTablePagination table={table} />
     </div>
   );
