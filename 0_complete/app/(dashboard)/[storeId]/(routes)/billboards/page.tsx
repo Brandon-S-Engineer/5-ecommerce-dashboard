@@ -14,7 +14,7 @@ const BillboardsPage = async ({ params }: { params: { storeId: string } }) => {
   const formattedBillboards = billboards.map((billboard) => ({
     id: billboard.id,
     label: billboard.label,
-    createdAt: format(new Date(billboard.createdAt), 'MMMM do ,yyyy'), // Format the creation date.
+    createdAt: format(new Date(billboard.createdAt), 'MMMM do ,yyyy'), // Format the creation date
   }));
 
   // Render a div containing the BillboardClient component with formatted data.
