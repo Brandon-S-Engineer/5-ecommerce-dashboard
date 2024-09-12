@@ -20,8 +20,8 @@ export const columns: ColumnDef<BillboardColumn>[] = [
     accessorKey: 'createdAt', // Accesses the 'createdAt' property from BillboardColumn
     header: 'Date', // Header text for the date column
   },
-  // {
-  //   id: 'actions', // Custom column with an ID 'actions'
-  //   cell: ({ row }) => <CellAction data={row.original} />, // Uses a custom component 'CellAction'
-  // },
+  {
+    id: 'actions', // Custom column with an ID 'actions'
+    cell: ({ row }) => <CellAction data={row.original} />, // Uses a custom component 'CellAction'
+  },
 ];

@@ -83,7 +83,7 @@ export function DataTable<TData, TValue>({ columns, data, searchKey }: DataTable
             size={20}
           />
           <Input
-            placeholder='Order ID or transaction ID...'
+            placeholder='Search'
             value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ''}
             onChange={(event) => table.getColumn(searchKey)?.setFilterValue(event.target.value)}
             className='pl-10'
@@ -115,6 +115,7 @@ export function DataTable<TData, TValue>({ columns, data, searchKey }: DataTable
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
       {/* Table rendering */}
       <div className='rounded-md border'>
         <Table>
@@ -150,6 +151,7 @@ export function DataTable<TData, TValue>({ columns, data, searchKey }: DataTable
           </TableBody>
         </Table>
       </div>
+
       {/* Pagination for the table */}
       <DataTablePagination table={table} />
     </div>
