@@ -1,7 +1,7 @@
 import { format } from 'date-fns'; // Import the 'format' function from 'date-fns' to format dates.
 
 import prismadb from '@/lib/prismadb';
-import BillboardClient from './components/Client';
+import BillboardClient from './components/client';
 
 const BillboardsPage = async ({ params }: { params: { storeId: string } }) => {
   // Fetch billboards from the database where storeId matches the given params.
