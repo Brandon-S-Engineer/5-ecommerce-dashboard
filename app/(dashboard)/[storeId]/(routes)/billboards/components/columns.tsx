@@ -5,23 +5,23 @@ import { CellAction } from './cell-action';
 
 //? Define the structure of data for each row in the table
 export type BillboardColumn = {
-  id: string;
-  label: string;
-  createdAt: string;
+  id: string; // Unique identifier for each row
+  label: string; // A label to display in the 'Label' column
+  createdAt: string; // A date to display in the 'Date' column
 };
 
 //? Define column definitions
 export const columns: ColumnDef<BillboardColumn>[] = [
   {
-    accessorKey: 'label', // Accesses the 'label' property from BillboardColumn
-    header: 'Label', // Header text displayed in the table for this column
+    accessorKey: 'label', // Maps to 'label' property in BillboardColumn
+    header: 'Label', // Column header text
   },
   {
-    accessorKey: 'createdAt', // Accesses the 'createdAt' property from BillboardColumn
-    header: 'Date', // Header text for the date column
+    accessorKey: 'createdAt', // Maps to 'createdAt' property
+    header: 'Date', // Column header text
   },
   {
     id: 'actions', // Custom column with an ID 'actions'
-    cell: ({ row }) => <CellAction data={row.original} />, // Uses a custom component 'CellAction'
+    cell: ({ row }) => <CellAction data={row.original} />, // Uses 'row.original' to pass full row data
   },
 ];
