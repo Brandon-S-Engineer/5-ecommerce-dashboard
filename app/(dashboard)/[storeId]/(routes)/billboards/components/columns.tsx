@@ -1,6 +1,7 @@
 'use client';
 
-import { ColumnDef } from '@tanstack/react-table';
+import { ColumnDef } from '@tanstack/react-table'; //? Import the type definition for defining columns in the table
+
 import { CellAction } from './cell-action';
 
 //? Define the structure of data for each row in the table
@@ -22,6 +23,6 @@ export const columns: ColumnDef<BillboardColumn>[] = [
   },
   {
     id: 'actions', // Custom column with an ID 'actions'
-    cell: ({ row }) => <CellAction data={row.original} />, // Uses 'row.original' to pass full row data
+    cell: ({ row }) => <CellAction data={row.original} />, //? Uses 'row.original' to pass full row data, so it access: BillboardColumn object
   },
 ];
