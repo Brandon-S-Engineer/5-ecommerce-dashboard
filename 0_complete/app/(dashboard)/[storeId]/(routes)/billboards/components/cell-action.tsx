@@ -43,32 +43,36 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   return (
     <>
       <AlertModal
-        isOpen={open}
+        isOpen={open} // Controls modal visibility
         onClose={() => setOpen(false)} // Closes the modal
-        onConfirm={onDelete} // Calls onDelete when confirmed
-        loading={loading} // Disables actions when loading
+        onConfirm={onDelete} // Executes deletion on confirm
+        loading={loading} // Indicates loading state
       />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
             variant='ghost'
             className='h-8 w-8 p-0'>
-            <span className='sr-only'>Open Menu</span>
-            <MoreHorizontal className='h-4 w-4' /> {/* Button icon */}
+            <span className='sr-only'>Open Menu</span> {/* Accessible text */}
+            <MoreHorizontal className='h-4 w-4' /> {/* Menu icon */}
           </Button>
         </DropdownMenuTrigger>
+
         <DropdownMenuContent align='end'>
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
+
           <DropdownMenuItem onClick={() => onCopy(data.id)}>
             <Copy className='mr-2 h-4 w-4' /> {/* Copy icon */}
             Copy Id
           </DropdownMenuItem>
+
           <DropdownMenuItem onClick={() => router.push(`/${params.storeId}/billboards/${data.id}`)}>
             <Edit className='mr-2 h-4 w-4' /> {/* Edit icon */}
             Update
           </DropdownMenuItem>
+
           <DropdownMenuItem onClick={() => setOpen(true)}>
-            <Trash className='mr-2 h-4 w-4' /> {/* Trash icon */}
+            <Trash className='mr-2 h-4 w-4' /> {/* Delete icon */}
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
