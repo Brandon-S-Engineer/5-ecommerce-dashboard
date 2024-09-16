@@ -91,10 +91,9 @@ export async function DELETE(req: Request, { params }: { params: { storeId: stri
     }
 
     // Delete store where billboardId and userId match
-    const billboard = await prismadb.store.deleteMany({
+    const billboard = await prismadb.billboard.deleteMany({
       where: {
         id: params.billboardId,
-        userId,
       },
     });
 
