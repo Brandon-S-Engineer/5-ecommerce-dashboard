@@ -49,6 +49,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   return (
     <>
+      {/* Confirmation modal for deletion, triggered when the Delete button is clicked */}
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
