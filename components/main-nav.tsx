@@ -13,7 +13,6 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
     {
       href: `/${params.storeId}`, // Dynamic URL for each store-settings
       label: 'Overview',
-
       // The 'active' property Marks the current link as active for styling
       active: pathname === `/${params.storeId}`, // Checks if the current path matches the settings route
     },
@@ -21,6 +20,11 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
       href: `/${params.storeId}/billboards`,
       label: 'Billboards',
       active: pathname === `/${params.storeId}/billboards`,
+    },
+    {
+      href: `/${params.storeId}/categories`,
+      label: 'Categories',
+      active: pathname === `/${params.storeId}/categories`,
     },
     {
       href: `/${params.storeId}/settings`,
