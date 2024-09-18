@@ -9,6 +9,7 @@ import { Separator } from '@/components/ui/separator';
 
 import { BillboardColumn, columns } from './columns';
 import { DataTable } from '@/components/ui/data-table'; // DataTable component for displaying data
+import { ApiList } from '@/components/ui/api-list';
 
 interface BillboardClientProps {
   data: BillboardColumn[]; // An array of BillboardColumn
@@ -39,6 +40,19 @@ export const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {
         searchKey='label'
         columns={columns}
         data={data}
+      />
+
+      {/* API section for displaying billboard-related API calls */}
+      <Heading
+        title='API'
+        description='API calls for Billboards'
+      />
+
+      <Separator />
+
+      <ApiList
+        entityName='billboards'
+        entityIdName='billboardId'
       />
     </>
   );
