@@ -1,25 +1,21 @@
-import { format } from 'date-fns'; // Import the 'format' function from 'date-fns' to format dates.
+import { format } from 'date-fns';
 
 import prismadb from '@/lib/prismadb';
 import { CategoryClient } from './components/client';
 import { CategoryColumn } from './components/columns';
 
 const CategoriesPage = async ({ params }: { params: { storeId: string } }) => {
-  // Fetch categories from the database where storeId matches the given params
   const categories = await prismadb.category.findMany({
     where: { storeId: params.storeId },
-    include: {
-      billboard: true,
-    },
+    include: { billboard: true },
     orderBy: { createdAt: 'desc' },
   });
 
-  // Format the fetched categories data to include formattedc reation date
   const formattedCategories: CategoryColumn[] = categories.map((item) => ({
     id: item.id,
     name: item.name,
     billboardLabel: item.billboard.label,
-    createdAt: format(new Date(item.createdAt), 'MMMM do, yyyy'), // Format the creation date
+    createdAt: format(new Date(item.createdAt), 'MMMM do, yyyy'),
   }));
 
   return (
