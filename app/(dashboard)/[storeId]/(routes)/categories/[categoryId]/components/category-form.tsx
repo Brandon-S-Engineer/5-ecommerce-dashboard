@@ -16,8 +16,7 @@ import { Separator } from '@/components/ui/separator';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { AlertModal } from '@/components/modals/alert-modal';
-import { useOrigin } from '@/hooks/use-origin';
-import ImageUpload from '@/components/ui/image-upload';
+import { Select, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface CategoryFormProps {
   initialData: Category | null;
@@ -47,7 +46,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
   //? (3/4) Setup form validation with useForm
   const form = useForm<CategoryFormValues>({
     resolver: zodResolver(formSchema), // Use zodResolver for form validation from schema
-    defaultValues: initialData || { label: '', imageUrl: '' }, // Initalize form with provided prop (store name)
+    defaultValues: initialData || { name: '', billboardId: '' }, // Initalize form with provided prop (store name)
   });
 
   /* -------------------- Submit handler for form submition ------------------- */
@@ -123,39 +122,43 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
         <form
           onSubmit={form.handleSubmit(onSubmit)} //? (4/4)
           className='space-y-8 w-full'>
-          <FormField
-            control={form.control}
-            name='imageUrl'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Background Image</FormLabel>
-                <FormControl>
-                  <ImageUpload
-                    value={field.value ? [field.value] : []}
-                    disabled={loading}
-                    onChange={(url) => field.onChange(url)}
-                    onRemove={() => field.onChange('')}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-
           <div className='grid grid-cols-3 gap-8'>
             <FormField
               control={form.control}
-              name='label' // Field name for validation, <Input />
+              name='name' // Field name for validation, <Input />
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Label</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder='Billboard Label'
+                      placeholder='Category Name'
                       {...field} // Spread field props (onChange, onBlur...)
                     />
                   </FormControl>
                   <FormMessage /> {/* Validation Message Display */}
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name='billboardId'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Billboard</FormLabel>
+                  <Select
+                    disabled={loading}
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue></SelectValue>
+                      </SelectTrigger>
+                    </FormControl>
+                  </Select>
+                  <FormMessage />
                 </FormItem>
               )}
             />
