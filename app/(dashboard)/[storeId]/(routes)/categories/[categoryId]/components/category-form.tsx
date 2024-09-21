@@ -1,25 +1,26 @@
 'use client';
 
-import * as z from 'zod'; // import { z } from 'zod'; // Zod for schema validation
+import * as z from 'zod';
 import axios from 'axios';
 import { useState } from 'react';
-import { Category } from '@prisma/client';
+import { Billboard, Category } from '@prisma/client';
 import { Trash } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useParams, useRouter } from 'next/navigation';
 
-import Heading from '@/components/ui/heading'; // Component for titles
+import Heading from '@/components/ui/heading';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { AlertModal } from '@/components/modals/alert-modal';
-import { Select, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface CategoryFormProps {
   initialData: Category | null;
+  billboards: Billboard[];
 }
 
 //? (1/4) Schema definition for form validation using Zod
@@ -31,7 +32,7 @@ const formSchema = z.object({
 //? (2/4) Type inference for the values from the schema created with Zod
 type CategoryFormValues = z.infer<typeof formSchema>;
 
-export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
+export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboards }) => {
   const params = useParams();
   const router = useRouter();
 
@@ -147,6 +148,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Billboard</FormLabel>
+
                   <Select
                     disabled={loading}
                     onValueChange={field.onChange}
@@ -154,9 +156,22 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
                     defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue></SelectValue>
+                        <SelectValue
+                          defaultValue={field.value}
+                          placeholder='Select a Billboard'
+                        />
                       </SelectTrigger>
                     </FormControl>
+
+                    <SelectContent>
+                      {billboards.map((billboard) => (
+                        <SelectItem
+                          key={billboard.id}
+                          value={billboard.id}>
+                          {billboard.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
                   </Select>
                   <FormMessage />
                 </FormItem>

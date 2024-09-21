@@ -153,6 +153,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboa
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Billboard</FormLabel>
+
                   <Select
                     disabled={loading}
                     onValueChange={field.onChange}
@@ -166,6 +167,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboa
                         />
                       </SelectTrigger>
                     </FormControl>
+
                     <SelectContent>
                       {billboards.map((billboard) => (
                         <SelectItem
