@@ -57,14 +57,14 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboa
 
       if (initialData) {
         /* ----------------------------- Edit Billboard ----------------------------- */
-        await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`, data);
+        await axios.patch(`/api/${params.storeId}/categories/${params.categoryId}`, data);
       } else {
         /* ---------------------------- Create Billboard ---------------------------- */
-        await axios.post(`/api/${params.storeId}/billboards`, data);
+        await axios.post(`/api/${params.storeId}/categories`, data);
       }
 
       router.refresh(); // Refresh page after success
-      router.push(`/${params.storeId}/billboards`);
+      router.push(`/${params.storeId}/categories`);
       toast.success(toastMessage);
     } catch (error) {
       toast.error('Something went wrong.');
@@ -81,9 +81,9 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboa
       setLoading(true);
 
       //? Delete Billboard
-      await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
+      await axios.delete(`/api/${params.storeId}/categories/${params.billboardId}`);
       router.refresh();
-      router.push(`/${params.storeId}/billboards`); // Redirect
+      router.push(`/${params.storeId}/categories`); // Redirect
       toast.success('Billboard deleted successfully');
     } catch (error) {
       toast.error('Make sure you deleted all categories using this billboard first');

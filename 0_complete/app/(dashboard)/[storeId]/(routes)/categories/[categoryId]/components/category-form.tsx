@@ -56,13 +56,9 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboa
     },
   });
 
-  // onDelete -> delete store -> refresh page -> redirect to root page (root layout will check if user has store and open createStore Modal if not found -> create store page will check if user has store and redirect to dashboard if found )
-
   const onSubmit = async (data: CategoryFormValues) => {
     try {
       setLoading(true);
-
-      //& if initialData is true then we are updating the store else we are creating a new store (initialData is null)
 
       if (initialData) {
         await axios.patch(`/api/${params.storeId}/categories/${params.categoryId}`, data);
