@@ -81,12 +81,12 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboa
       setLoading(true);
 
       //? Delete Billboard
-      await axios.delete(`/api/${params.storeId}/categories/${params.billboardId}`);
+      await axios.delete(`/api/${params.storeId}/categories/${params.categoryId}`);
       router.refresh();
       router.push(`/${params.storeId}/categories`); // Redirect
-      toast.success('Billboard deleted successfully');
+      toast.success('Category deleted successfully');
     } catch (error) {
-      toast.error('Make sure you deleted all categories using this billboard first');
+      toast.error('Make sure you deleted all products using this billboard first');
     } finally {
       setLoading(false);
       setOpen(false);
