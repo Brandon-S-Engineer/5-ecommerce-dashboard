@@ -1,6 +1,7 @@
 import prismadb from '@/lib/prismadb';
 import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
+import { ObjectId } from 'mongodb'; //! Import ObjectId from mongodb
 
 export async function POST(req: Request, { params }: { params: { storeId: string } }) {
   try {
@@ -35,8 +36,10 @@ export async function POST(req: Request, { params }: { params: { storeId: string
       return new NextResponse('Unauthorized', { status: 403 });
     }
 
+    //? Create Category
     const category = await prismadb.category.create({
       data: {
+        id: new ObjectId().toString(), //! Generate a new ObjectId and store as string
         name,
         billboardId,
         storeId: params.storeId,

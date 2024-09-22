@@ -24,9 +24,10 @@ interface CategoryFormProps {
 }
 
 //? (1/4) Schema definition for form validation using Zod
+
 const formSchema = z.object({
-  name: z.string().min(1),
-  billboardId: z.string().url(),
+  name: z.string().min(1), //! Require at least one character for name | In order to work
+  billboardId: z.string().min(1), // Require a non-empty string for billboardId
 });
 
 //? (2/4) Type inference for the values from the schema created with Zod
@@ -56,10 +57,10 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboa
       setLoading(true);
 
       if (initialData) {
-        /* ----------------------------- Edit Billboard ----------------------------- */
+        /* ----------------------------- Edit Category ----------------------------- */
         await axios.patch(`/api/${params.storeId}/categories/${params.categoryId}`, data);
       } else {
-        /* ---------------------------- Create Billboard ---------------------------- */
+        /* ---------------------------- Create Category ---------------------------- */
         await axios.post(`/api/${params.storeId}/categories`, data);
       }
 
@@ -71,22 +72,20 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboa
     } finally {
       setLoading(false);
     }
-
-    console.log(data);
   };
 
-  /* --------------------- Handler for deleting Billboard --------------------- */
+  /* --------------------- Handler for deleting Category --------------------- */
   const onDelete = async () => {
     try {
       setLoading(true);
 
-      //? Delete Billboard
+      //? Delete Category
       await axios.delete(`/api/${params.storeId}/categories/${params.categoryId}`);
       router.refresh();
       router.push(`/${params.storeId}/categories`); // Redirect
       toast.success('Category deleted successfully');
     } catch (error) {
-      toast.error('Make sure you deleted all products using this billboard first');
+      toast.error('Make sure you deleted all products using this category first');
     } finally {
       setLoading(false);
       setOpen(false);
@@ -148,7 +147,6 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData, billboa
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Billboard</FormLabel>
-
                   <Select
                     disabled={loading}
                     onValueChange={field.onChange}
