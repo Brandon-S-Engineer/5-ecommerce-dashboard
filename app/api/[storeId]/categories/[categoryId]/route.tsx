@@ -3,14 +3,14 @@ import { auth } from '@clerk/nextjs'; // Authentication helper from Clerk
 import { NextResponse } from 'next/server';
 
 //? GET request
-export async function GET(req: Request, { params }: { params: { billboardId: string } }) {
+export async function GET(req: Request, { params }: { params: { categoryId: string } }) {
   try {
-    if (!params.billboardId) {
-      return new NextResponse('Billboard ID is required', { status: 400 });
+    if (!params.categoryId) {
+      return new NextResponse('Category ID is required', { status: 400 });
     }
 
-    const billboard = await prismadb.billboard.findUnique({
-      where: { id: params.billboardId },
+    const category = await prismadb.category.findUnique({
+      where: { id: params.categoryId },
     });
 
     return NextResponse.json(billboard);
