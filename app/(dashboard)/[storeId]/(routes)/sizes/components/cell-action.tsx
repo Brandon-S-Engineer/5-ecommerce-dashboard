@@ -6,50 +6,44 @@ import toast from 'react-hot-toast';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'; // Dropdown components
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { AlertModal } from '@/components/modals/alert-modal';
 
-import { BillboardColumn } from './columns';
+import { SizeColumn } from './columns';
 
 interface CellActionProps {
-  data: BillboardColumn; // Props containing billboard data
+  data: SizeColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
 
-  // State management for loading and modal visibility
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
-  // Copy the billboard ID to clipboard
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success('Billboard Id copied to clipboard');
+    toast.success('Size Id copied to clipboard');
   };
 
-  // Handle the deletion of a billboard
   const onDelete = async () => {
     try {
       setLoading(true);
-      // Delete request to remove the billboard
-      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
-      router.refresh(); // Refresh the page to reflect changes
-      toast.success('Billboard deleted successfully');
+      await axios.delete(`/api/${params.storeId}/sizes/${data.id}`);
+      router.refresh();
+      toast.success('Size deleted successfully');
     } catch (error) {
-      // Error handling
-      toast.error('Make sure you removed all categories using this billboard first.');
+      toast.error('Make sure you removed all products using this size first.');
     } finally {
       setLoading(false);
-      setOpen(false); // Close the modal
+      setOpen(false);
     }
   };
 
   return (
     <>
-      {/* Confirmation modal for deletion, triggered when the Delete button is clicked */}
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
@@ -58,13 +52,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       />
 
       <DropdownMenu>
-        {/* asChild Prop: Makes the child component the direct trigger element */}
         <DropdownMenuTrigger asChild>
           <Button
             variant='ghost'
             className='h-8 w-8 p-0'>
-            <span className='sr-only'>Open menu</span> {/* Accessible text */}
-            <MoreHorizontal className='h-4 w-4' /> {/* Button icon */}
+            <span className='sr-only'>Open menu</span>
+            <MoreHorizontal className='h-4 w-4' />
           </Button>
         </DropdownMenuTrigger>
 
@@ -72,17 +65,17 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
           <DropdownMenuItem onClick={() => onCopy(data.id)}>
-            <Copy className='mr-2 h-4 w-4' /> {/* Copy icon */}
+            <Copy className='mr-2 h-4 w-4' />
             Copy Id
           </DropdownMenuItem>
 
-          <DropdownMenuItem onClick={() => router.push(`/${params.storeId}/billboards/${data.id}`)}>
-            <Edit className='mr-2 h-4 w-4' /> {/* Edit icon */}
+          <DropdownMenuItem onClick={() => router.push(`/${params.storeId}/sizes/${data.id}`)}>
+            <Edit className='mr-2 h-4 w-4' />
             Update
           </DropdownMenuItem>
 
           <DropdownMenuItem onClick={() => setOpen(true)}>
-            <Trash className='mr-2 h-4 w-4' /> {/* Delete icon */}
+            <Trash className='mr-2 h-4 w-4' />
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
