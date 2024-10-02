@@ -1,12 +1,12 @@
 import prismadb from '@/lib/prismadb';
-import { BillboardForm } from './components/billboard-form';
+import { ProductForm } from './components/product-form';
 
 const ProductPage = async ({ params }: { params: { productId: string } }) => {
   if (params.productId.length !== 24) {
     return (
       <div className='flex-col'>
         <div className='flex-1 space-y-4 p-8 pt-6'>
-          <BillboardForm initialData={null} />
+          <ProductForm initialData={null} />
         </div>
       </div>
     );
@@ -24,7 +24,7 @@ const ProductPage = async ({ params }: { params: { productId: string } }) => {
   return (
     <div className='flex-col'>
       <div className='flex-1 space-y-4 p-8 pt-6'>
-        <BillboardForm initialData={product} />
+        <ProductForm initialData={product} />
       </div>
     </div>
   );
