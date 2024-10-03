@@ -3,13 +3,14 @@
 import * as z from 'zod'; // import { z } from 'zod'; // Zod for schema validation
 import axios from 'axios';
 import { useState } from 'react';
-import { Image, Product } from '@prisma/client';
+import { Category, Color, Image, Product, Size } from '@prisma/client';
 import { Trash } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useParams, useRouter } from 'next/navigation';
 
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Heading from '@/components/ui/heading'; // Component for titles
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -26,6 +27,9 @@ interface ProductFormProps {
         images: Image[];
       })
     | null;
+  categories: Category[];
+  colors: Color[];
+  sizes: Size[];
 }
 
 //? (1/4) Schema definition for form validation using Zod
@@ -43,7 +47,7 @@ const formSchema = z.object({
 //? (2/4) Type inference for the values from the schema created with Zod
 type ProductFormValues = z.infer<typeof formSchema>;
 
-export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
+export const ProductForm: React.FC<ProductFormProps> = ({ initialData, categories, colors, sizes }) => {
   const params = useParams(); // Hook to access URL parameters (id)
   const router = useRouter(); // Hook to manage navigation and refreshing
 
@@ -170,18 +174,72 @@ export const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
           <div className='grid grid-cols-3 gap-8'>
             <FormField
               control={form.control}
-              name='label' // Field name for validation, <Input />
+              name='name'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Label</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder='Billboard Label'
-                      {...field} // Spread field props (onChange, onBlur...)
+                      placeholder='Product Name'
+                      {...field}
                     />
                   </FormControl>
-                  <FormMessage /> {/* Validation Message Display */}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name='price'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Price</FormLabel>
+                  <FormControl>
+                    <Input
+                      type='number'
+                      disabled={loading}
+                      placeholder='9.90'
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name='categoryId'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
+                  <Select
+                    disabled={loading}
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue
+                          defaultValue={field.value}
+                          placeholder='Select a Category'
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+
+                    <SelectContent>
+                      {categories.map((category) => (
+                        <SelectItem
+                          key={category.id}
+                          value={category.id}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
                 </FormItem>
               )}
             />
