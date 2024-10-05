@@ -25,6 +25,7 @@ export async function GET(req: Request, { params }: { params: { productId: strin
   }
 }
 
+//? Improved performance by ensuring all chages are applied in a single transaction
 export async function PATCH(req: Request, { params }: { params: { storeId: string; productId: string } }) {
   try {
     const { userId } = auth();
@@ -32,38 +33,16 @@ export async function PATCH(req: Request, { params }: { params: { storeId: strin
 
     const { name, price, categoryId, colorId, sizeId, images, isFeatured, isArchived } = body;
 
+    // Authorization and validation
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    if (!name) {
-      return new NextResponse('Name is required', { status: 400 });
+    if (!name || !images || !images.length || !price || !categoryId || !sizeId || !colorId || !params.productId) {
+      return new NextResponse('All fields are required', { status: 400 });
     }
 
-    if (!images || !images.length) {
-      return new NextResponse('Images are required', { status: 400 });
-    }
-
-    if (!price) {
-      return new NextResponse('Price is required', { status: 400 });
-    }
-
-    if (!categoryId) {
-      return new NextResponse('Category ID is required', { status: 400 });
-    }
-
-    if (!sizeId) {
-      return new NextResponse('Size ID is required', { status: 400 });
-    }
-
-    if (!colorId) {
-      return new NextResponse('Color ID is required', { status: 400 });
-    }
-
-    if (!params.productId) {
-      return new NextResponse('Product ID is Required', { status: 400 });
-    }
-
+    // Verify store ownership
     const storeByUserId = await prismadb.store.findFirst({
       where: {
         id: params.storeId,
@@ -75,21 +54,22 @@ export async function PATCH(req: Request, { params }: { params: { storeId: strin
       return new NextResponse('Unauthorized', { status: 403 });
     }
 
-    await prismadb.product.update({
-      where: { id: params.productId },
-      data: { name, price, categoryId, colorId, sizeId, images: { deleteMany: {} }, isFeatured, isArchived },
-    });
-
+    // Update product with new data
     const product = await prismadb.product.update({
-      where: {
-        id: params.productId,
-      },
+      where: { id: params.productId },
       data: {
+        name,
+        price,
+        categoryId,
+        colorId,
+        sizeId,
+        isFeatured,
+        isArchived,
         images: {
+          // Replace existing images with new ones
+          deleteMany: {}, // Remove all existing images
           createMany: {
-            data: {
-              ...images.map((image: { url: string }) => image),
-            },
+            data: images.map((image: { url: string }) => ({ url: image.url })),
           },
         },
       },
@@ -97,7 +77,7 @@ export async function PATCH(req: Request, { params }: { params: { storeId: strin
 
     return NextResponse.json(product);
   } catch (error) {
-    console.log(`[PRODUCT_PATCH]`, error);
+    console.error(`[PRODUCT_PATCH]`, error); // Log error details for debugging
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 }
