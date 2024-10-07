@@ -8,11 +8,11 @@ import Heading from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 
 import { ProductColumn, columns } from './columns';
-import { DataTable } from '@/components/ui/data-table'; // DataTable component for displaying data
+import { DataTable } from '@/components/ui/data-table';
 import { ApiList } from '@/components/ui/api-list';
 
 interface ProductClientProps {
-  data: ProductColumn[]; // An array of ProductColumn
+  data: ProductColumn[];
 }
 
 export const ProductClient: React.FC<ProductClientProps> = ({ data }) => {
