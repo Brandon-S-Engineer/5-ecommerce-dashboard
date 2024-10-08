@@ -1,58 +1,29 @@
 'use client';
 
-import { Plus } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
-
-import { Button } from '@/components/ui/button';
 import Heading from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
+import { DataTable } from '@/components/ui/data-table';
 
-import { BillboardColumn, columns } from './columns';
-import { DataTable } from '@/components/ui/data-table'; // DataTable component for displaying data
-import { ApiList } from '@/components/ui/api-list';
+import { OrderColumn, columns } from './columns';
 
-interface BillboardClientProps {
-  data: BillboardColumn[]; // An array of BillboardColumn
+interface OrderClientProps {
+  data: OrderColumn[];
 }
 
-export const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {
-  const router = useRouter();
-  const params = useParams();
-
+export const OrderClient: React.FC<OrderClientProps> = ({ data }) => {
   return (
     <>
-      <div className='flex items-center justify-between'>
-        <Heading
-          title={`Billboards: ${data.length}`}
-          description='Billboards are the main way to advertise your products and services. You can create a billboard by clicking on the button.'
-        />
-
-        {/* Button to navigate to new Billboard creation page */}
-        <Button onClick={() => router.push(`/${params.storeId}/billboards/new`)}>
-          <Plus className='mr-4 h-4 w-4' />
-          Add New
-        </Button>
-      </div>
+      <Heading
+        title={`Orders: ${data.length}`}
+        description='Manage Orders for your Store'
+      />
 
       <Separator />
 
       <DataTable
-        searchKey='label'
+        searchKey='products'
         columns={columns}
         data={data}
-      />
-
-      {/* API section for displaying billboard-related API calls */}
-      <Heading
-        title='API'
-        description='API calls for Billboards'
-      />
-
-      <Separator />
-
-      <ApiList
-        entityName='billboards'
-        entityIdName='billboardId'
       />
     </>
   );
