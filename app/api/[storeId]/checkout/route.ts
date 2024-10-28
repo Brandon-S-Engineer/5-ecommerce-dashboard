@@ -3,3 +3,5 @@ import { NextResponse } from 'next/server';
 
 import { stripe } from '@/lib/stipe';
 import prismadb from '@/lib/prismadb';
+
+const corsHeaders = {};
