@@ -3,8 +3,10 @@ import { CreditCard, DollarSign, PackageIcon } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Heading from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
-import prismadb from '@/lib/prismadb';
 import { formatter } from '@/lib/utils';
+import { getTotalRevenue } from '@/actions/get-total-revenue';
+import { getSalesCount } from '@/actions/get-sales-count';
+import { getStockCount } from '@/actions/get-stock-count';
 
 interface DashboardPageProps {
   params: {
@@ -14,8 +16,8 @@ interface DashboardPageProps {
 
 const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
   const totalRevenue = await getTotalRevenue(params.storeId);
-  const salesCount = () => {};
-  const stockCount = () => {};
+  const salesCount = await getSalesCount(params.storeId);
+  const stockCount = await getStockCount(params.storeId);
 
   return (
     <div className='flex-col'>
@@ -36,7 +38,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
             </CardHeader>
 
             <CardContent>
-              <div className='text-2xl font-bold'>{formatter.format(100)}</div>
+              <div className='text-2xl font-bold'>{formatter.format(totalRevenue)}</div>
             </CardContent>
           </Card>
 
@@ -48,7 +50,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
             </CardHeader>
 
             <CardContent>
-              <div className='text-2xl font-bold'>+25</div>
+              <div className='text-2xl font-bold'>{salesCount}</div>
             </CardContent>
           </Card>
 
@@ -60,10 +62,20 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
             </CardHeader>
 
             <CardContent>
-              <div className='text-2xl font-bold'>12</div>
+              <div className='text-2xl font-bold'>{stockCount}</div>
             </CardContent>
           </Card>
         </div>
+
+        <Card className='col-span-4'>
+          <CardHeader>
+            <CardTitle>Overview</CardTitle>
+          </CardHeader>
+
+          <CardContent className='pl-2'>
+            <Overview data={[]} />
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
