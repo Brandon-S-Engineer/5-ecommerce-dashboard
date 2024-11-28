@@ -81,26 +81,26 @@ model Color {
 }
 
 model Product {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  storeId String @db.ObjectId
-  store Store @relation("StoreToProduct",fields: [storeId], references: [id])
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  storeId     String      @db.ObjectId
+  store       Store       @relation("StoreToProduct", fields: [storeId], references: [id])
 
-  categoryId String @db.ObjectId
-  category Category @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  categoryId  String      @db.ObjectId
+  category    Category    @relation("CategoryToProduct", fields: [categoryId], references: [id])
 
-  name String
-  price Float
-  isFeatured Boolean @default(false)
-  isArchived Boolean @default(false)
-  sizeId String @db.ObjectId
-  size Size @relation(fields: [sizeId], references: [id])
+  name        String
+  price       Float
+  isFeatured  Boolean     @default(false)
+  isArchived  Boolean     @default(false)
+  sizeId      String      @db.ObjectId
+  size        Size        @relation(fields: [sizeId], references: [id])
 
-  colorId String @db.ObjectId
-  color Color @relation(fields: [colorId], references: [id])
-  images Image[] // for multiple images of product
-  orderItems OrderItem[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  colorId     String      @db.ObjectId
+  color       Color       @relation(fields: [colorId], references: [id])
+  images      Image[]
+  orderItems  OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 
   @@index([storeId])
   @@index([categoryId])
@@ -108,16 +108,18 @@ model Product {
   @@index([colorId])
 }
 
+
 model Image {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  productId String @db.ObjectId
-  product Product @relation(fields: [productId], references: [id] , onDelete: Cascade)
-  url String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  productId String   @db.ObjectId
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([productId])
 }
+
 
 model Order {
   id String @id @default(auto()) @map("_id") @db.ObjectId
@@ -135,11 +137,14 @@ model Order {
 }
 
 model OrderItem {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  orderId String @db.ObjectId
-  order Order @relation(fields: [orderId], references: [id])
-  productId String @db.ObjectId
-  product Product @relation(fields: [productId], references: [id])
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  orderId   String   @db.ObjectId
+  order     Order    @relation(fields: [orderId], references: [id])
+  productId String   @db.ObjectId
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
   @@index([orderId])
   @@index([productId])
 }
+
+

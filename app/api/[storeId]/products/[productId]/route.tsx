@@ -111,6 +111,6 @@ export async function DELETE(req: Request, { params }: { params: { storeId: stri
     return NextResponse.json(product);
   } catch (error) {
     console.log(`[PRODUCT_DELETE]`, error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    return new NextResponse('Internal Server Errore', { status: 500 });
   }
 }
