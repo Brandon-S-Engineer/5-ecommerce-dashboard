@@ -122,11 +122,11 @@ model Order {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   
   storeId String @db.ObjectId
-  store Store @relation("StoreToOrder",fields: [storeId], references: [id])
+  store Store @relation("StoreToOrder", fields: [storeId], references: [id])
   orderItems OrderItem[]  
   isPaid Boolean @default(false)
-  phone String @default("") // we are filling this after payment
-  address String @default("") // we are filling this after payment
+  phone String @default("") 
+  address String @default("") 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

@@ -64,20 +64,11 @@ export async function POST(req: Request, { params }: { params: { storeId: string
     line_items,
     mode: 'payment',
     billing_address_collection: 'required',
-    phone_number_collection: {
-      enabled: true,
-    },
+    phone_number_collection: { enabled: true },
     success_url: `${process.env.FRONTEND_STORE_URL}/cart?success=1`,
     cancel_url: `${process.env.FRONTEND_STORE_URL}/cart?canceled=1`,
-    metadata: {
-      orderId: order.id,
-    },
+    metadata: { orderId: order.id },
   });
 
-  return NextResponse.json(
-    { url: session.url },
-    {
-      headers: corsHeaders,
-    }
-  );
+  return NextResponse.json({ url: session.url }, { headers: corsHeaders });
 }
