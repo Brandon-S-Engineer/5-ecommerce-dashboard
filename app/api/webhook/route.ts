@@ -1,7 +1,6 @@
 import Stripe from 'stripe';
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
-
 import { stripe } from '@/lib/stipe';
 import prismadb from '@/lib/prismadb';
 
@@ -16,7 +15,6 @@ export async function POST(req: Request) {
     // 2. Verify the webhook using Stripe's SDK
     event = stripe.webhooks.constructEvent(body, signature, process.env.STRIPE_WEBHOOK_SECRET!);
   } catch (error: any) {
-    // Return error if verification fails
     return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 });
   }
 
@@ -25,13 +23,7 @@ export async function POST(req: Request) {
   const address = session?.customer_details?.address;
 
   // 4. Format the address into a string
-  const addressComponents = [
-    address?.line1,
-    address?.line1, // Possible duplication, check this.
-    address?.city,
-    address?.postal_code,
-    address?.country,
-  ];
+  const addressComponents = [address?.line1, address?.line2, address?.city, address?.postal_code, address?.country];
   const addressString = addressComponents.filter((c) => c !== null).join(', ');
 
   // 5. Handle completed session and update order details

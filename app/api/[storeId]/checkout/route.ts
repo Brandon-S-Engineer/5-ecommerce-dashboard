@@ -37,6 +37,7 @@ export async function POST(req: Request, { params }: { params: { storeId: string
 
   // Prepare line items for Stripe checkout
   const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
+
   products.forEach((product) => {
     line_items.push({
       quantity: 1,
