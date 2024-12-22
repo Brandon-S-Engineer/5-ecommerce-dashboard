@@ -63,7 +63,7 @@ export default function StoreSwitcher({ className, items = [] }: StoreSwitcherPr
 
       <PopoverContent className='w-[200px] p-0'>
         <Command>
-          <CommandList>
+          <CommandList role='listbox'>
             <CommandInput placeholder='Search store' />
             <CommandEmpty>No Store Found</CommandEmpty>
 
@@ -91,6 +91,7 @@ export default function StoreSwitcher({ className, items = [] }: StoreSwitcherPr
           <CommandList>
             <CommandGroup>
               <CommandItem
+                data-value='create store' //? Testing
                 onSelect={() => {
                   setOpen(false); // Close Popover
                   storeModal.onOpen(); // Open modal to create a new store using Zustand
