@@ -25,15 +25,6 @@ afterAll(() => {
   jest.useRealTimers();
 });
 
-jest.mock('recharts', () => {
-  console.log('Recharts mock is active');
-  const OriginalRecharts = jest.requireActual('recharts');
-  return {
-    ...OriginalRecharts,
-    ResponsiveContainer: ({ children }) => <div>{children}</div>, // Simplify ResponsiveContainer
-  };
-});
-
 //? Mock environment variables, Ask GPT to implement this in case there is a .env fc
 process.env.NEXT_PUBLIC_API_URL = 'https://mock-api.com';
 process.env.NEXT_PUBLIC_FEATURE_FLAG = 'true';
