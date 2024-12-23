@@ -9,6 +9,23 @@ global.fetch = jest.fn(() =>
   })
 );
 
+jest.mock('@clerk/nextjs', () => ({
+  UserButton: ({ afterSignOutUrl }) => (
+    <div
+      data-testid='user-button'
+      data-signout-url={afterSignOutUrl}>
+      User Button
+    </div>
+  ),
+  auth: jest.fn(),
+}));
+
+jest.mock('./lib/prismadb', () => ({
+  store: {
+    findMany: jest.fn(),
+  },
+}));
+
 // Example: Mock browser APIs like `window.alert`
 beforeAll(() => {
   jest.spyOn(window, 'alert').mockImplementation(() => {});
