@@ -4,15 +4,23 @@ import '@testing-library/jest-dom';
 import { MainNav } from './main-nav';
 
 jest.mock('next/navigation', () => ({
-  useParams: jest.fn(() => ({ storeId: 'store123' })), // Mock useParams to return a fake storeId
-  usePathname: jest.fn(() => '/store123/categories'), // Mock usePathname to simulate current path
+  useParams: jest.fn(),
+  usePathname: jest.fn(),
 }));
 
+const mockUseParams = require('next/navigation').useParams;
+const mockUsePathname = require('next/navigation').usePathname;
+
 describe('MainNav Component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockUseParams.mockReturnValue({ storeId: 'store123' }); // Provide a valid storeId
+    mockUsePathname.mockReturnValue('/store123/categories'); // Mock the current path
+  });
+
   it('renders all navigation links', () => {
     render(<MainNav />);
 
-    // Check if all labels are rendered
     const labels = ['Overview', 'Billboards', 'Categories', 'Sizes', 'Colors', 'Products', 'Orders', 'Settings'];
 
     labels.forEach((label) => {
