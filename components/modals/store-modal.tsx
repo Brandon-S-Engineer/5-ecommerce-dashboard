@@ -33,7 +33,6 @@ export const StoreModal = () => {
   /* ---------------------- Asynchronous Submit Handler: ---------------------- */
   // A function that processes the form values upon submission, ensuring they are validated and type-safe.
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log('values', values);
     try {
       setLoading(true); // request is in progress
 
