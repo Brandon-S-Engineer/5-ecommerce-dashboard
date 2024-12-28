@@ -7,7 +7,7 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
 // Mock Zustand Store
-jest.mock('@/hooks/use-store-modal', () => ({
+jest.mock('../../hooks/use-store-modal', () => ({
   useStoreModal: jest.fn(),
 }));
 
@@ -19,7 +19,7 @@ jest.mock('react-hot-toast', () => ({
   },
 }));
 
-const mockUseStoreModal = require('@/hooks/use-store-modal').useStoreModal;
+const mockUseStoreModal = require('../../hooks/use-store-modal').useStoreModal;
 const mockAxiosPost = axios.post as jest.Mock;
 
 describe('StoreModal Component', () => {
