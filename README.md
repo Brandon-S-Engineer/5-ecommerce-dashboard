@@ -1,36 +1,128 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Admin Web Page
 
-## Getting Started
+**Developed a robust admin panel** for managing categories, products, billboards, and orders in a full-stack eCommerce platform.  
+**Built with Next.js, TypeScript, and Tailwind CSS**, the project integrates **Prisma**, **MongoDB**, and **Clerk Authentication** to ensure scalability, security, and administrative efficiency.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🌐 Live Demo
+
+**[Admin Panel Demo](#)**  
+Explore the powerful admin panel with features like entity management, data tables, and real-time insights.
+
+---
+
+## 🚀 Features
+
+**Implemented a full-featured admin panel**, including:
+
+- **Authentication**: Secure and seamless user authentication powered by **Clerk**.
+- **Entity Management**:
+  - **Categories**: Add, update, and manage product categories.
+  - **Billboards**: Manage marketing entities with CRUD operations.
+  - **Sizes** and **Colors**: Efficiently handle product attributes.
+  - **Products**: Oversee detailed product data, including images.
+  - **Orders**: Manage and monitor customer orders in real-time.
+- **Dashboard**: Displays critical business metrics for administrative insights.
+- **Data Table**: Searchable and filterable tables for efficient data handling.
+- **Settings Page**: Customizable options for managing the admin panel.
+
+---
+
+## 🛠️ Tech Stack
+
+**Built with modern tools and frameworks to deliver performance and scalability**:
+
+- **Framework**: Next.js
+- **Language**: TypeScript
+- **Database**: PlanetScale (MySQL)
+- **ORM**: Prisma
+- **Authentication**: Clerk
+- **Styling**: Tailwind CSS
+- **Testing**: Jest
+
+---
+
+## 🧪 Testing
+
+**Implemented and executed 19 Jest test cases** to validate functionality and reliability, focusing on:
+
+- CRUD operations for all entities, including categories, products, and orders.
+- Secure authentication workflows using Clerk.
+- Accuracy of data tables, filters, and search functionality.
+- Administrative tool features and their responsiveness.
+
+---
+
+## 📂 File Structure
+
+**Organized for scalability and clarity**:
+
+```
+├── .next/
+├── .swc/
+├── actions/
+├── app/
+│   ├── (auth)/
+│   ├── (dashboard)/
+│   ├── (root)/
+│   ├── api/
+│   ├── favicon.ico
+│   ├── globals.css
+│   └── layout.tsx
+├── components/
+│   ├── modals/
+│   └── ui/
+│       ├── main-nav.tsx
+│       ├── main-nav.test.tsx
+│       ├── navbar.tsx
+│       ├── navbar.test.tsx
+│       ├── overview.tsx
+│       ├── overview.test.tsx
+│       ├── store-switcher.tsx
+│       └── store-switcher.test.tsx
+├── coverage/
+├── hooks/
+├── lib/
+├── node_modules/
+├── prisma/
+├── providers/
+├── public/
+├── .env
+├── .eslintrc.json
+├── .gitignore
+├── components.json
+├── jest.config.cjs
+├── middleware.ts
+├── next-env.d.ts
+├── next.config.mjs
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── README.md
+├── setupTests.js
+├── tailwind.config.ts
+└── tsconfig.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Highlights
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**Demonstrated expertise in back-end development through the following features**:
 
-## Learn More
+- **Scalable Database Management**: Leveraged Prisma and PlanetScale (MySQL) for efficient data handling.
+- **Secure Authentication**: Integrated Clerk for user access control and security.
+- **Entity CRUD Operations**: Enabled robust management of categories, billboards, products, sizes, and orders.
+- **Data Tables**: Implemented searchable and filterable tables to streamline administrative tasks.
+- **Real-Time Insights**: The dashboard provides essential metrics for operational efficiency.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📬 Contact
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+**Reach out for inquiries or collaborations**:
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Email**: [brandon.s.engineer@gmail.com](mailto:brandon.s.engineer@gmail.com)
+- **LinkedIn**: [Brandon I. Soria](https://www.linkedin.com/in/brandon-i-soria/)
+- **Portfolio**: [Link to Portfolio](https://www.brandon-s-engineer.com/)
