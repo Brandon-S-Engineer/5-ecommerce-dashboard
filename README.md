@@ -35,7 +35,7 @@ Explore the powerful admin panel with features like entity management, data tabl
 
 - **Framework**: Next.js
 - **Language**: TypeScript
-- **Database**: PlanetScale (MySQL)
+- **Database**: MongoDB
 - **ORM**: Prisma
 - **Authentication**: Clerk
 - **Styling**: Tailwind CSS
@@ -111,7 +111,7 @@ Explore the powerful admin panel with features like entity management, data tabl
 
 **Demonstrated expertise in back-end development through the following features**:
 
-- **Scalable Database Management**: Leveraged Prisma and PlanetScale (MySQL) for efficient data handling.
+- **Scalable Database Management**: Leveraged Prisma and MongoDB for efficient data handling.
 - **Secure Authentication**: Integrated Clerk for user access control and security.
 - **Entity CRUD Operations**: Enabled robust management of categories, billboards, products, sizes, and orders.
 - **Data Tables**: Implemented searchable and filterable tables to streamline administrative tasks.
