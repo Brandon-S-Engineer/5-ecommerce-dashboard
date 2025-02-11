@@ -11,11 +11,12 @@ export const ModalProvider = () => {
     setIsMounted(true); // Set isMounted to true after the component is mounted
   }, []);
 
-  // If not mounted, render nothing (prevents SSR)
+  // If not mounted (server side), render nothing (prevents SSR)
   if (!isMounted) {
     return null;
   }
 
+  // If we are on the client
   return (
     <>
       <StoreModal />
