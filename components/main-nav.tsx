@@ -1,12 +1,12 @@
 'use client';
 
-import Link from 'next/link'; // Link component for navigation
-import { useParams, usePathname } from 'next/navigation'; // Hooks for getting URL parameters and current path
+import Link from 'next/link';
+import { useParams, usePathname } from 'next/navigation';
 
-import { cn } from '@/lib/utils'; // Utility function for conditionally applying classes
+import { cn } from '@/lib/utils';
 
 export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElement>) {
-  const pathname = usePathname(); // Current URL path
+  const pathname = usePathname();
   const params = useParams(); // Dynamic parameters from the URL
 
   const routes = [

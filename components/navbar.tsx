@@ -1,14 +1,13 @@
-import { UserButton, auth } from '@clerk/nextjs'; // Clerk components for user authentication.
-// import { redirect } from 'next/navigation'; // Redirect function for handling navigation.
+import { UserButton, auth } from '@clerk/nextjs';
 
 import StoreSwitcher from '@/components/store-switcher';
 import prismadb from '@/lib/prismadb';
 
 import { MainNav } from '@/components/main-nav';
-import { redirect } from 'next/navigation'; // Redirect function for handling navigation.
+import { redirect } from 'next/navigation';
 
 const Navbar = async () => {
-  const { userId } = auth(); // Authenticated user's ID
+  const { userId } = auth();
 
   if (!userId) {
     redirect('/sign-in');
