@@ -3,7 +3,7 @@ import { BillboardForm } from './components/billboard-form';
 
 // billboardId corresponds to the dynamic segment [billboardId]
 const BillboardPage = async ({ params }: { params: { billboardId: string } }) => {
-  //! Check if the billboardId has a valid ObjectID length (24 characters)
+  // Check if the billboardId has a valid ObjectID length (24 characters)
   if (params.billboardId.length !== 24) {
     // If the ID is not valid, handle the "new" case
     return (
@@ -15,7 +15,7 @@ const BillboardPage = async ({ params }: { params: { billboardId: string } }) =>
     );
   }
 
-  //! Fetch the billboard once the ID is validated (24 characters)
+  // Fetch the billboard once the ID is validated (24 characters)
   const billboard = await prismadb.billboard.findFirst({
     where: {
       id: params.billboardId, // Match the billboard by its ID from the URL params
