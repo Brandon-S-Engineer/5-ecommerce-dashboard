@@ -17,14 +17,7 @@ import {
 // UI components for buttons, inputs, and table
 import { Button } from '@/components/ui/button'; // Button for actions
 import { Input } from '@/components/ui/input'; // Input for search
-import {
-  Table, // Table component
-  TableBody, // Table body
-  TableCell, // Table cells
-  TableHead, // Table headers
-  TableHeader, // Header container
-  TableRow, // Table rows
-} from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 // React hook for state management
 import { useState } from 'react'; // State hook
